@@ -1,85 +1,86 @@
-const task_form = document.querySelector('#add-simulation');
-const todos = document.querySelector('#todos');
+const sim_form = document.querySelector('#add-simulation');
+const simDiv = document.querySelector('#SimDiv');
 
-// crearTarea
+// crear Simulacion 
 
-function createTask({description, deadline, status}) {
-  const tasks = JSON.parse(localStorage.getItem('tasks'));
+function createSim({value, amount, deadline,client}) {
+  const sims = JSON.parse(localStorage.getItem('sims'));
 
-  const ids = tasks.map(task => task.id);
+  const ids = sims.map(sim => sims.id);
 
-  const newTask = {
+  const newSim = {
     id: ids.length > 0 ? Math.max(...ids) + 1 : 0,
-    description,
+    value,
+    amount,
     deadline,
-    status
+    client
   }
 
-  tasks.push(newTask);
+  sims.push(newSim);
 
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-  appendTodos();
+  localStorage.setItem('sims', JSON.stringify(sims));
+  appendSimDiv();
 }
 
 // eliminarTarea
 
-function deleteTask(id) {
-  const tasks = JSON.parse(localStorage.getItem('tasks'));
-  const newTasks = tasks.filter(task => task.id != id);
+function deleteSim(id) {
+  const sims = JSON.parse(localStorage.getItem('sims'));
+  const newSim = sims.filter(sim => sim.id != id);
 
-  localStorage.setItem('tasks', JSON.stringify(newTasks));
-  appendTodos();
+  localStorage.setItem('sims', JSON.stringify(newSim));
+  appendSimDiv();
 };
 
 // actualizarTarea
 
-function updateTask(id, data) {
-  const tasks = JSON.parse(localStorage.getItem('tasks'));
-  const newTasks = tasks.map(task => task.id == id && task.status == data.status);
+function updateSim(id, data) {
+  const sims = JSON.parse(localStorage.getItem('sims'));
+  const newSim = sims.map(sim => sim.id == id && sim.status == data.status);
 
-  localStorage.setItem('tasks', JSON.stringify(newTasks));
-  appendTodos();
+  localStorage.setItem('sims', JSON.stringify(newSim));
+  appendSimDiv();
 }
 
 
-// actualizarTodosEnDom
+// actualizar En Dom
 
-function appendTodos() {
+function appendSimDiv() {
 
-  let tasks = [];
+  let sims = [];
 
-  if (JSON.parse(localStorage.getItem('tasks'))) {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
+  if (JSON.parse(localStorage.getItem('sims'))) {
+    sims = JSON.parse(localStorage.getItem('sims'));
   } else {
-    localStorage.setItem('tasks', JSON.stringify([]));
+    localStorage.setItem('sims', JSON.stringify([]));
   }
 
-  todos.innerHTML = "";
+  simDiv.innerHTML = "";
 
-  tasks.forEach(task => {
-    const task_container = document.createElement('article');
-    task_container.className = 'task';
-    task_container.id = `task-${task.id}`;
+  sims.forEach(sim => {
+    const sim_container = document.createElement('article');
+    sim_container.className = 'sim';
+    sim_container.id = `sim-${sim.id}`;
 
-    task_container.innerHTML = `
+    //    value,    amount,    deadline,    client
+    sim_container.innerHTML = `
      <div>
-        <h3>${task.description}</h3>
-        <p>${task.deadline}</p>
+        <h3>${sim.description}</h3>
+        <p>${sim.deadline}</p>
       </div>
-      <p class="${task.status.toLowerCase()}">${task.status}</p>
-      <button id="btn-${task.id}" class="btn-delete">Eliminar</button>
+      <p class="${sim.status.toLowerCase()}">${sim.status}</p>
+      <button id="btn-${sim.id}" class="btn-delete">Eliminar</button>
     `;
 
-    todos.appendChild(task_container);
+    simDiv.appendChild(sim_container);
 
-    const deleteButton = document.querySelector(`#btn-${task.id}`);
-    // console.log(deleteButton);
+    const deleteButton = document.querySelector(`#btn-${sim.id}`);
     deleteButton.addEventListener('click', (e) => {
       const id = e.target.id.split('-')[1];
-      deleteTask(id);
+      deleteSim(id);
       Toastify({
         text: "Tarea eliminada con éxito",
-        className: "deleted-task",
+        className: "deleted-sim",
         style: {
           background: 'crimson',
           padding: '32px',
@@ -93,24 +94,25 @@ function appendTodos() {
   });
 }
 
-appendTodos();
+appendSimDiv();
 
-task_form.addEventListener('submit', (e) => {
+sim_form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const task = {
-    description: e.target[0].value,
+  const sim = {
+    value: e.target[0].value,
+    amount: e.target[1].value,
     deadline: e.target[1].value,
-    status: e.target[2].value
+    client: e.target[2].value
   }
 
-  createTask(task);
+  createSim(sim);
   Swal.fire({
     title: '¡Tarea creada exitosamente!',
     icon: 'success',
     confirmButtonText: 'Terminar'
   });
 
-  task_form.reset();
+  sim_form.reset();
 });
 
