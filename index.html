@@ -18,27 +18,27 @@
             <h2>Simulador - BNA</h2>
             <form action="" id="add-simulation">
                 <label id="label" for="value">Valor vivienda a adquirir:</label>
-                <input id="value" type="number" name="value" required step="10000.00" placeholder="0">
+                <input id="value" type="number" name="value"  required placeholder="0">
                 <label id="label" for="amount">Monto a solicitar:</label>
-                <input id="amount" type="number" name="amount" required step="10000.00" placeholder="Maximo 75%">
+                <input id="amount" type="number" name="amount" required placeholder="Maximo 75%">
                 <label for="deadline">Plazo:</label>
                 <input id="deadline" type="number" name="deadline" required placeholder="1 - 30">
                 <label for="client">Cobra en el BNA:</label>
                 <select name="client" id="client">
-                    <option value="si">Si - 4,5%</option>
-                    <option value="no">No - 6,0%</option>
+                    <option value="4,5">Si</option>
+                    <option value="6">No</option>
                  </select>
                 <button id="btn" type="submit">Calcular!</button>
             </form>
         </section>
-        <section id="simulationHistory" class="container">
-            <h2>Prestamos simulados:</h2>
+        <section class="container">
+            <h2 class="sims">Prestamos simulados:</h2>
             <div id="SimDiv">
             </div>
         </section>
     </main>
     <footer class="bg-dark">
-        <p>Made with ❤️ by Sairov</p>
+        <p>BNA</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

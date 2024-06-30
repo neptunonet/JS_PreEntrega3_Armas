@@ -6,7 +6,7 @@ const simDiv = document.querySelector('#SimDiv');
 function createSim({value, amount, deadline,client}) {
   const sims = JSON.parse(localStorage.getItem('sims'));
 
-  const ids = sims.map(sim => sims.id);
+  const ids = sims.map(sims => sims.id);
 
   const newSim = {
     id: ids.length > 0 ? Math.max(...ids) + 1 : 0,
@@ -15,7 +15,6 @@ function createSim({value, amount, deadline,client}) {
     deadline,
     client
   }
-
   sims.push(newSim);
 
   localStorage.setItem('sims', JSON.stringify(sims));
@@ -65,10 +64,11 @@ function appendSimDiv() {
     //    value,    amount,    deadline,    client
     sim_container.innerHTML = `
      <div>
-        <h3>${sim.description}</h3>
+        <h3>${sim.value}</h3>
+        <h4>${sim.amount}</h4>
         <p>${sim.deadline}</p>
       </div>
-      <p class="${sim.status.toLowerCase()}">${sim.status}</p>
+      <p>${sim.client}</p>
       <button id="btn-${sim.id}" class="btn-delete">Eliminar</button>
     `;
 
@@ -79,7 +79,7 @@ function appendSimDiv() {
       const id = e.target.id.split('-')[1];
       deleteSim(id);
       Toastify({
-        text: "Tarea eliminada con éxito",
+        text: "Simulacion eliminada con éxito",
         className: "deleted-sim",
         style: {
           background: 'crimson',
@@ -102,13 +102,13 @@ sim_form.addEventListener('submit', (e) => {
   const sim = {
     value: e.target[0].value,
     amount: e.target[1].value,
-    deadline: e.target[1].value,
-    client: e.target[2].value
+    deadline: e.target[2].value,
+    client: e.target[3].value
   }
 
   createSim(sim);
   Swal.fire({
-    title: '¡Tarea creada exitosamente!',
+    title: '¡Prestamo calculado exitosamente!',
     icon: 'success',
     confirmButtonText: 'Terminar'
   });
