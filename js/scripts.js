@@ -1,6 +1,38 @@
 const sim_form = document.querySelector('#add-simulation');
 const simDiv = document.querySelector('#SimDiv');
 
+
+//Formatear números
+function formatNumber(input) {
+  // Extraer el valor actual del campo y remover separadores de miles
+  let value = input.value.replace(/\D/g, '');
+  
+  // Convertir el valor a un número y luego a una cadena con separadores de miles
+  let formattedValue = parseInt(value).toLocaleString();
+  
+  // Actualizar el valor del campo con el valor formateado
+  input.value = formattedValue;
+}
+
+//valida carga de Formulario
+function validateFields() {
+  const value = document.querySelector('#value').value;
+  const amount = document.querySelector('#amount').value;
+  const deadline = document.querySelector('#deadline').value;
+
+  if (parseInt(value) <= 0) {
+     return true;
+  }
+  if (parseInt(amount) <= 0 || parseInt(amount) > parseInt(value) * 0.75) {
+    return true;
+  }
+  if (parseInt(deadline) > 0 && parseInt(deadline) > 30) {
+    return true;
+  }
+  return false;
+}
+
+
 // crear Simulacion 
 
 function createSim({value, amount, deadline,client}) {
@@ -60,15 +92,18 @@ function appendSimDiv() {
     const sim_container = document.createElement('article');
     sim_container.className = 'sim';
     sim_container.id = `sim-${sim.id}`;
-
-    //    value,    amount,    deadline,    client
+    const monthly_fee = parseInt(sim.amount.replace(/\./g, '')) * ((parseInt(sim.client.replace(/\./g, '')) / 100) / 12) / (1 - Math.pow(1 + (parseInt(sim.client.replace(/\./g, '')) / 100) / 12, -parseInt(sim.deadline.replace(/\./g, '')) * 12));
+    
     sim_container.innerHTML = `
      <div>
-        <h3>${sim.value}</h3>
-        <h4>${sim.amount}</h4>
-        <p>${sim.deadline}</p>
+        <p>Monto de la vivienda: $${sim.value}</p>
+        <p>Monto solicitado: $${sim.amount}</p>
+        <p>Plazo: ${sim.deadline} años</p>
+        <p>TNA: ${sim.client}%</p>
       </div>
-      <p>${sim.client}</p>
+
+      <p>Cuota Mensual: $${monthly_fee.toFixed(2)}</p>
+
       <button id="btn-${sim.id}" class="btn-delete">Eliminar</button>
     `;
 
@@ -94,25 +129,42 @@ function appendSimDiv() {
   });
 }
 
+
 appendSimDiv();
 
+
+
+// Eventos
+
 sim_form.addEventListener('submit', (e) => {
+  
   e.preventDefault();
-
-  const sim = {
-    value: e.target[0].value,
-    amount: e.target[1].value,
-    deadline: e.target[2].value,
-    client: e.target[3].value
+  
+  validateFields();
+  
+  if (validateFields()) {
+    Swal.fire({
+      title: '¡Error!',
+      text: 'Verifique los campos cargados',
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    });
+    sim_form.reset();
   }
-
-  createSim(sim);
-  Swal.fire({
-    title: '¡Prestamo calculado exitosamente!',
-    icon: 'success',
-    confirmButtonText: 'Terminar'
-  });
-
-  sim_form.reset();
+  else {
+    const sim = {
+      value: e.target[0].value,
+      amount: e.target[1].value,
+      deadline: e.target[2].value,
+      client: e.target[3].value 
+    }
+    createSim(sim);
+    Swal.fire({
+      title: '¡Prestamo calculado exitosamente!',
+      icon: 'success',
+      confirmButtonText: 'Terminar'
+    });
+    sim_form.reset();
+  }
 });
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 /* Variables */
 
@@ -9,9 +9,9 @@
     --primary: #3f6bac;
     --accent: #6483a0;
     /* Font Sizes */
-    --text-title: 5.2em;
-    --text-subtitle: 4.6em;
-    --text-heading: 3.6em;
+    --text-title: 4.2em;
+    --text-subtitle: 3.6em;
+    --text-heading: 3.0em;
     --text-link: 2.2em;
     --text-base: 1.6em;
     --text-caption: 1.4em;
@@ -46,7 +46,7 @@
 html {
     font-size: 62.5%;
     color: var(--dark);
-    font-family: 'Barlow', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 body {
@@ -159,39 +159,6 @@ main {
 .sim p{
     font-size: var(--text-link);
 }
-/*
-p.pendiente {
-    background-color: rgb(9, 114, 206);
-    font-size: 12px;
-    color: white;
-    border-radius: 20px;
-    padding: 8px;
-}
-
-p.finalizada {
-    background-color: rgb(15, 182, 6);
-    font-size: 12px;
-    color: white;
-    border-radius: 20px;
-    padding: 8px;
-}
-
-p.pendiente {
-    background-color: rgb(9, 114, 206);
-    font-size: 12px;
-    color: white;
-    border-radius: 20px;
-    padding: 8px;
-} 
-
-p.vencida {
-    background-color: rgb(206, 9, 85);
-    font-size: 12px;
-    color: white;
-    border-radius: 20px;
-    padding: 8px;
-}
-*/
 
 .sim h3{
     font-size: var(--text-heading);
