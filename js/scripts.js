@@ -1,3 +1,12 @@
+/**
+ * 3 er Pre entrega de Proyecto Final
+ * 
+ * Comision 71340
+ * 
+ * Juan Ignacio Armas
+ */
+
+
 const sim_form = document.querySelector('#add-simulation');
 const simDiv = document.querySelector('#SimDiv');
 
@@ -13,6 +22,7 @@ function formatNumber(input) {
   // Actualizar el valor del campo con el valor formateado
   input.value = formattedValue;
 }
+
 
 //valida carga de Formulario
 function validateFields() {
@@ -31,7 +41,6 @@ function validateFields() {
     
   }
 }
-
 
 
 // crear Simulacion 
@@ -130,6 +139,8 @@ function appendSimDiv() {
   });
 }
 
+
+//Recargar simulaciones
 
 appendSimDiv();
 
