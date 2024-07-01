@@ -20,17 +20,18 @@ function validateFields() {
   const amount = document.querySelector('#amount').value;
   const deadline = document.querySelector('#deadline').value;
 
-  if (parseInt(value) <= 0) {
-     return true;
+  switch (true) {
+    case parseInt(value.replace(/\./g, '')) <= 0:
+      return true;
+    case parseInt(amount.replace(/\./g, '')) <= 0 || parseInt(amount.replace(/\./g, '')) > parseInt(value.replace(/\./g, '')) * 0.75:
+      return true;
+    case parseInt(deadline) <= 0 || parseInt(deadline) > 31:
+      return true;
+    default:
+    
   }
-  if (parseInt(amount) <= 0 || parseInt(amount) > parseInt(value) * 0.75) {
-    return true;
-  }
-  if (parseInt(deadline) > 0 && parseInt(deadline) > 30) {
-    return true;
-  }
-  return false;
 }
+
 
 
 // crear Simulacion 
@@ -139,8 +140,6 @@ appendSimDiv();
 sim_form.addEventListener('submit', (e) => {
   
   e.preventDefault();
-  
-  validateFields();
   
   if (validateFields()) {
     Swal.fire({

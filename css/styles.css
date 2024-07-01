@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 /* Variables */
 :root {
     /* Paleta */
@@ -47,15 +48,14 @@ p {
     background-color: var(--dark);
 }
 .container {
-    max-width: 1024px;
-    margin: 0 auto;
+    display: grid;
+    place-items: center;
+    padding: var(--spacing-xs);
+    margin: auto;
+   
 }
 
-.title {
-    font-size: var(--text-heading);
-    text-align: center;
-    margin: var(--spacing-md) 0;
-}
+
 
 /* header */
 header {
@@ -70,10 +70,12 @@ header h1 {
 main {
     margin: var(--spacing-xs) 0 var(--spacing-md);
 }
+
+
 /* Form */
 #create {
     display: flex;
-    border: #1e1f20 1px solid;
+    border-bottom: 3px solid var(--primary);
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-sm);
@@ -112,6 +114,13 @@ main {
     font-weight: bold;
     cursor: pointer;
 }
+
+.title {
+    font-size: var(--text-heading);
+    text-align: center;
+    margin: var(--spacing-md) 0;
+}
+
 #sims {
     margin-top: 30px;
     min-height: 40vh;
